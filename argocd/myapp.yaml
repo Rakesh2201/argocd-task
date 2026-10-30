@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/Rakesh2201/argocd-task.git
+    targetRevision: main
+    path: helm/myapp
+    helm:
+      releaseName: myapp
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: myapp
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  rules:
+    - http:
+        paths:
+          - path: /thalapathy(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: app1-service
+                port:
+                  number: 80
+
+          - path: /darling(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: app2-service
+                port:
+                  number: 80
+{{- end }}

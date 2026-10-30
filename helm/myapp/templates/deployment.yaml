@@ -1,0 +1,30 @@
+{{- range .Values.applications }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}-deployment
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: "{{ .image.repository }}:{{ .image.tag }}"
+          ports:
+            - name: http
+              containerPort: {{ .containerPort }}
+          volumeMounts:
+            - name: html-content
+              mountPath: {{ .documentRoot }}
+      volumes:
+        - name: html-content
+          configMap:
+            name: {{ .name }}-html
+---
+{{- end }}

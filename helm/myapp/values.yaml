@@ -1,0 +1,43 @@
+applications:
+  - name: app1
+    replicaCount: 1
+    image:
+      repository: nginx
+      tag: alpine
+    containerPort: 80
+    servicePort: 80
+    documentRoot: /usr/share/nginx/html
+    indexHtml: |
+      <!DOCTYPE html>
+      <html>
+      <body>
+        <h1>APP 1 - NGINX</h1>
+        <h2>THALAPATHY VIJAY</h2>
+      </body>
+      </html>
+
+  - name: app2
+    replicaCount: 1
+    image:
+      repository: tomcat
+      tag: latest
+    containerPort: 8080
+    servicePort: 80
+    documentRoot: /usr/local/tomcat/webapps/ROOT
+    indexHtml: |
+      <!DOCTYPE html>
+      <html>
+      <body>
+        <h1>APP 2 - TOMCAT</h1>
+        <h2>DARLING PRABHAS</h2>
+      </body>
+      </html>
+
+ingress:
+  enabled: true
+  className: nginx
+  paths:
+    - path: /app1
+      serviceName: app1-service
+    - path: /app2
+      serviceName: app2-service
