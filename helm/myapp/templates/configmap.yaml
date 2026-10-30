@@ -1,0 +1,10 @@
+{{- range .Values.applications }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .name }}-html
+data:
+  index.html: |
+{{ .indexHtml | indent 4 }}
+---
+{{- end }}
