@@ -3,14 +3,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: myapp-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: myapp-ingress
-  annotations:
-    nginx.org/mergeable-ingress-type: "minion"
 spec:
   ingressClassName: nginx
   rules:
@@ -32,3 +24,4 @@ spec:
                 name: app2-service
                 port:
                   number: 80
+{{- end }}
