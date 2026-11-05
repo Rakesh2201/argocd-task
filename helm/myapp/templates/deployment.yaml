@@ -21,10 +21,15 @@ spec:
               containerPort: {{ .containerPort }}
           volumeMounts:
             - name: html-content
-              mountPath: {{ .documentRoot }}
+              mountPath: {{ .documentRoot }}/index.html
+              subPath: index.html
+              readOnly: true
       volumes:
         - name: html-content
           configMap:
             name: {{ .name }}-html
+            items:
+              - key: index.html
+                path: index.html
 ---
 {{- end }}
