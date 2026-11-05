@@ -3,6 +3,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: myapp-ingress
+  annotations:
+    nginx.org/rewrites: "serviceName=app1-service rewrite=/;serviceName=app2-service rewrite=/"
 spec:
   ingressClassName: nginx
   rules:
