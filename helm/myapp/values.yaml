@@ -36,8 +36,9 @@ applications:
 ingress:
   enabled: true
   className: nginx
+  host: "apps.example.com"
   paths:
-    - path: /app1
+    - path: /thalapathy
       serviceName: app1-service
-    - path: /app2
+    - path: /darling
       serviceName: app2-service
