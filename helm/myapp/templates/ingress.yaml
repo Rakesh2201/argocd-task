@@ -5,24 +5,30 @@ metadata:
   name: myapp-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  annotations:
+    nginx.org/mergeable-ingress-type: "minion"
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: "{{ .Values.ingress.host }}"
+      http:
         paths:
-          - path: /thalapathy(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /thalapathy
+            pathType: Prefix
             backend:
               service:
                 name: app1-service
                 port:
                   number: 80
 
-          - path: /darling(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /darling
+            pathType: Prefix
             backend:
               service:
                 name: app2-service
                 port:
                   number: 80
-{{- end }}
